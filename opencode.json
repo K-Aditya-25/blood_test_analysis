@@ -1,0 +1,129 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "tensorix/z-ai/glm-5.2",
+  "permission": {
+    "read": {
+      "*": "allow",
+      ".env": "deny",
+      ".env.*": "deny",
+      "*.env": "deny",
+      "*.env.*": "deny",
+      "**/.env": "deny",
+      "**/.env.*": "deny",
+      ".env.example": "allow",
+      "**/.env.example": "allow"
+    },
+    "edit": {
+      "*": "allow",
+      ".env": "deny",
+      ".env.*": "deny",
+      "*.env": "deny",
+      "*.env.*": "deny",
+      "**/.env": "deny",
+      "**/.env.*": "deny"
+    },
+    "glob": {
+      "*": "allow",
+      ".env": "deny",
+      ".env.*": "deny",
+      "*.env": "deny",
+      "*.env.*": "deny",
+      "**/.env": "deny",
+      "**/.env.*": "deny",
+      ".env.example": "allow",
+      "**/.env.example": "allow"
+    },
+    "grep": {
+      "*": "ask",
+      "*TENSORIX_API_KEY*": "deny",
+      "*API_KEY*": "deny",
+      "*SECRET*": "deny",
+      "*TOKEN*": "deny"
+    },
+    "bash": {
+      "*": "allow",
+      "*.env*": "deny",
+      "* .env*": "deny",
+      "*TENSORIX_API_KEY*": "deny",
+      "*API_KEY*": "deny",
+      "*SECRET*": "deny",
+      "*TOKEN*": "deny",
+      "env": "deny",
+      "printenv": "deny",
+      "set": "deny",
+      "export": "deny"
+    }
+  },
+  "provider": {
+    "tensorix": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Tensorix",
+      "options": {
+        "baseURL": "https://api.tensorix.ai/v1",
+        "apiKey": "{env:TENSORIX_API_KEY}"
+      },
+      "models": {
+        "z-ai/glm-5.2": {
+          "name": "GLM-5.2"
+        },
+        "minimax/minimax-m2": {
+          "name": "MiniMax M2"
+        }
+      }
+    }
+  },
+  "mcp": {
+    "tavily": {
+      "type": "local",
+      "command": ["npx", "-y", "tavily-mcp@latest"],
+      "enabled": true,
+      "environment": {
+        "TAVILY_API_KEY": "{env:TAVILY_API_KEY}"
+      }
+    },
+    "brave-search": {
+      "type": "local",
+      "command": ["npx", "-y", "@brave/brave-search-mcp-server"],
+      "enabled": true,
+      "timeout": 30000,
+      "environment": {
+        "BRAVE_API_KEY": "{env:BRAVE_SEARCH_API_KEY}"
+      }
+    },
+    "context7": {
+      "type": "local",
+      "command": ["npx", "-y", "@upstash/context7-mcp@latest"],
+      "enabled": true
+    },
+    "design-inspiration": {
+      "type": "local",
+      "command": ["node", "/Users/adityakharbanda/blood_test_analysis/tools/design-inspiration-mcp-server/dist/index.js"],
+      "enabled": true,
+      "timeout": 30000,
+      "environment": {
+        "SERPER_API_KEY": "{env:SERPER_API_KEY}"
+      }
+    },
+    "ui-layouts": {
+      "type": "local",
+      "command": ["npx", "-y", "@ui-layouts/mcp"],
+      "enabled": true,
+      "timeout": 30000
+    },
+    "mcp-copy-web-ui": {
+      "type": "local",
+      "command": ["node", "/Users/adityakharbanda/blood_test_analysis/tools/mcp-copy-web-ui/build/index.js"],
+      "enabled": true,
+      "timeout": 60000
+    },
+    "github": {
+      "type": "local",
+      "command": ["npx", "-y", "@modelcontextprotocol/server-github"],
+      "enabled": true,
+      "timeout": 30000,
+      "environment": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "{env:GITHUB_PERSONAL_ACCESS_TOKEN_ZED}"
+      }
+    }
+  }
+}

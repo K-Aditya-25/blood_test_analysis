@@ -1,11 +1,12 @@
 name = "vitals-api-proxy"
 main = "src/index.ts"
 compatibility_date = "2024-12-01"
+workers_dev = true
 
 # Non-secret configuration (safe to commit).
 # Set the deployed dashboard origin here so CORS allows it.
 [vars]
-ALLOWED_ORIGIN = "https://vitals-dashboard.vercel.app"
+ALLOWED_ORIGIN = "https://vitals-chi-eight.vercel.app"
 
 # ---------------------------------------------------------------------------
 # Secrets — set via CLI, NEVER in this file:

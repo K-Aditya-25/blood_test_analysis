@@ -161,16 +161,21 @@ This project was assembled end-to-end with AI tooling in [Zed]:
 The agent had access to these MCP servers
 (`opencode.json → mcp`):
 
-| MCP                  | Used for                                                    |
-| -------------------- | ----------------------------------------------------------- |
-| `tavily`             | general web research                                        |
-| `brave-search`       | web / image / news / video search                           |
-| `context7`           | up-to-date library docs (Next.js, React, etc.)              |
-| `design-inspiration` | UI inspiration across Dribbble, Behance, Awwwards, Mobbin   |
-| `ui-layouts`         | component-level UI inspiration                             |
-| `mcp-copy-web-ui`    | crawl a site and extract design tokens (colors, type, etc.) |
-| `github`             | issues, PRs, repo search                                    |
-| `vercel`             | Vercel project & deployment management (remote, OAuth)     |
+| MCP                       | Used for                                                    |
+| ------------------------- | ----------------------------------------------------------- |
+| `tavily`                  | general web research                                        |
+| `brave-search`            | web / image / news / video search                           |
+| `context7`                | up-to-date library docs (Next.js, React, etc.)              |
+| `design-inspiration`      | UI inspiration across Dribbble, Behance, Awwwards, Mobbin   |
+| `ui-layouts`              | component-level UI inspiration                             |
+| `mcp-copy-web-ui`         | crawl a site and extract design tokens (colors, type, etc.) |
+| `github`                  | issues, PRs, repo search                                    |
+| `vercel`                  | Vercel project & deployment management (remote, OAuth)      |
+| `cloudflare`              | Cloudflare Workers, D1, KV, R2 management (remote, OAuth)  |
+| `cloudflare-docs`         | Cloudflare docs search (public, no auth)                   |
+| `cloudflare-bindings`     | Cloudflare bindings (D1, KV, R2, queues) access (OAuth)    |
+| `cloudflare-builds`       | Cloudflare Workers Builds API (remote, OAuth)              |
+| `cloudflare-observability`| Cloudflare logs, analytics, traces (remote, OAuth)          |
 
 ---
 

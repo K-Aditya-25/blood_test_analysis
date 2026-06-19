@@ -1,6 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "tensorix/z-ai/glm-5.2",
+  "model": "tensorix/minimax/minimax-m3",
   "permission": {
     "read": {
       "*": "allow",
@@ -11,7 +11,11 @@
       "**/.env": "deny",
       "**/.env.*": "deny",
       ".env.example": "allow",
-      "**/.env.example": "allow"
+      "**/.env.example": "allow",
+      "private_reports": "deny",
+      "private_reports/**": "deny",
+      "**/private_reports": "deny",
+      "**/private_reports/**": "deny"
     },
     "edit": {
       "*": "allow",
@@ -20,7 +24,11 @@
       "*.env": "deny",
       "*.env.*": "deny",
       "**/.env": "deny",
-      "**/.env.*": "deny"
+      "**/.env.*": "deny",
+      "private_reports": "deny",
+      "private_reports/**": "deny",
+      "**/private_reports": "deny",
+      "**/private_reports/**": "deny"
     },
     "glob": {
       "*": "allow",
@@ -31,14 +39,20 @@
       "**/.env": "deny",
       "**/.env.*": "deny",
       ".env.example": "allow",
-      "**/.env.example": "allow"
+      "**/.env.example": "allow",
+      "private_reports": "deny",
+      "private_reports/**": "deny",
+      "**/private_reports": "deny",
+      "**/private_reports/**": "deny"
     },
     "grep": {
-      "*": "ask",
+      "*": "allow",
       "*TENSORIX_API_KEY*": "deny",
       "*API_KEY*": "deny",
       "*SECRET*": "deny",
-      "*TOKEN*": "deny"
+      "*TOKEN*": "deny",
+      "private_reports/**": "deny",
+      "**/private_reports/**": "deny"
     },
     "bash": {
       "*": "allow",
@@ -66,8 +80,25 @@
         "z-ai/glm-5.2": {
           "name": "GLM-5.2"
         },
+        "deepseek/deepseek-v4-flash": {
+          "name": "DeepSeek V4 Flash"
+        },
         "minimax/minimax-m2": {
           "name": "MiniMax M2"
+        },
+        "minimax/minimax-m3": {
+          "name": "MiniMax M3",
+          "modalities": {
+            "input": ["text", "image"],
+            "output": ["text"]
+          }
+        },
+        "moonshotai/kimi-k2.5": {
+          "name": "Kimi K2.5",
+          "modalities": {
+            "input": ["text", "image"],
+            "output": ["text"]
+          }
         }
       }
     }

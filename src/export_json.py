@@ -9,8 +9,8 @@ Run with:  python3 -m src.export_json   (or:  uv run python -m src.export_json)
 import json
 from pathlib import Path
 
-from .loader import load_all
 from .exporter import build_document
+from .loader import load_all
 
 OUT = Path(__file__).resolve().parent.parent / "next-app" / "src" / "data" / "report.json"
 

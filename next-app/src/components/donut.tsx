@@ -82,8 +82,10 @@ export function Donut({ tests }: { tests: Test[] }) {
     if (rows.length > 1) arc -= GAP; // reserve gap
     const start = cursor;
     const end = cursor + arc;
+    const seg: Seg = { t: r.t, c: r.c, start, end, mid: (start + end) / 2 };
+    // eslint-disable-next-line react-hooks/immutability
     cursor = end + GAP;
-    return { t: r.t, c: r.c, start, end, mid: (start + end) / 2 };
+    return seg;
   });
 
   const cx = 95;

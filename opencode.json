@@ -155,6 +155,13 @@
       "environment": {
         "GITHUB_PERSONAL_ACCESS_TOKEN": "{env:GITHUB_PERSONAL_ACCESS_TOKEN_ZED}"
       }
+    },
+    "vercel": {
+      "type": "remote",
+      "url": "https://mcp.vercel.com",
+      "oauth": {},
+      "enabled": true,
+      "timeout": 30000
     }
   }
 }

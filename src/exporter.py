@@ -1,11 +1,10 @@
 """Compute per-test chart scales and build the exportable data document."""
 
 from .models import Patient, Test
-from .sections import SECTIONS
-from .interpretations import note_for
 from .names import first_name
-from .summaries import headline, section_summaries
 from .section_plain import SECTION_PLAIN
+from .sections import SECTIONS
+from .summaries import headline, section_summaries
 
 
 def _scale(t: Test) -> tuple[float, float, float | None, float | None]:

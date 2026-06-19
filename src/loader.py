@@ -3,11 +3,11 @@
 import os
 from pathlib import Path
 
-from .models import Patient, Test
-from .pdf_parser import parse_header, parse_tests
 from .interpretations import note_for
-from .sections import SECTIONS
+from .models import Patient
 from .names import clean_name
+from .pdf_parser import parse_header, parse_tests
+from .sections import SECTIONS
 
 REPORTS_DIR = Path(__file__).resolve().parent.parent / "private_reports"
 

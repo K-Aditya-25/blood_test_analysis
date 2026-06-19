@@ -69,16 +69,74 @@ environment.
 
 ## Deployment
 
-Push to `main` → Vercel auto-builds the Next.js app. Regenerate
-`report.json` (with real or example data) and commit it whenever the
-data changes.
+The Next.js dashboard deploys to Vercel. The Python pipeline is not
+needed at build time — the committed `report.json` is read directly.
+
+```bash
+cd next-app && vercel    # link + deploy
+```
+
+### API security — Cloudflare Worker proxy
+
+No API keys live in Vercel environment variables. A Cloudflare Worker
+acts as an API proxy: secrets are stored as Worker secrets
+(`wrangler secret put KEY_NAME`) and are only visible to the Worker
+runtime — never to the browser, source control, or Vercel.
+
+```
+Browser → Cloudflare Worker (holds secrets) → upstream API
+```
+
+The Worker is in `worker/` with a `/health` endpoint and a
+documented `/api/llm` proxy template. CORS is locked to the deployed
+origin via `ALLOWED_ORIGIN` in `wrangler.toml`.
+
+```bash
+cd worker && wrangler deploy
+wrangler secret put TENSORIX_API_KEY   # encrypted, never in code
+```
+
+### CI
+
+GitHub Actions (`.github/workflows/ci.yml`) runs on every push/PR to
+`main`:
+
+- **Python job**: `uv sync` → `ruff check` → `pytest`
+- **Frontend job**: `npm ci` → `eslint` → `tsc --noEmit` → `next build`
 
 ## Stack
 
 - **Python**: `pdfplumber`, `uv`
 - **Frontend**: Next.js 16, React 19, TypeScript, Tailwind v4,
   framer-motion, next-themes
-- **Deployment**: Vercel
+- **Deployment**: Vercel (dashboard) + Cloudflare Worker (API proxy)
+- **CI**: GitHub Actions — Python lint/test + Next.js lint/typecheck/build
+- **Tests**: pytest (54 tests covering ranges, models, catalog,
+  example-data generation, and loader)
+
+---
+
+## Screenshots
+
+### Light mode — full dashboard
+
+![Dashboard — light mode](screenshots/dashboard-light.png)
+
+### Dark mode — full dashboard
+
+![Dashboard — dark mode](screenshots/dashboard-dark.png)
+
+### Hero — wellness ring & headline
+
+![Hero](screenshots/hero.png)
+
+### Section cards — per-test status charts
+
+![Section cards](screenshots/sections.png)
+
+### Blood cells — WBC donut
+
+![Blood cells](screenshots/blood-cells.png)
 
 ---
 
@@ -112,6 +170,7 @@ The agent had access to these MCP servers
 | `ui-layouts`         | component-level UI inspiration                             |
 | `mcp-copy-web-ui`    | crawl a site and extract design tokens (colors, type, etc.) |
 | `github`             | issues, PRs, repo search                                    |
+| `vercel`             | Vercel project & deployment management (remote, OAuth)     |
 
 ---
 
@@ -125,6 +184,12 @@ at every layer:
 
 The committed `next-app/src/data/report.json` is generated with
 `VITALS_DATA_MODE=example` (synthetic data only).
+
+API keys are **never** stored in Vercel environment variables. All
+upstream API calls are proxied through a Cloudflare Worker
+(`worker/`) whose secrets are set via `wrangler secret put` and are
+encrypted at rest — invisible to the browser, source control, and
+Vercel.
 
 ---
 

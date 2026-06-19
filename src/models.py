@@ -3,6 +3,7 @@ from dataclasses import dataclass, field
 
 @dataclass
 class Test:
+    __test__ = False
     key: str
     name: str
     section: str

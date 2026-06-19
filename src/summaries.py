@@ -1,9 +1,9 @@
 """Build plain-language section summaries and the patient headline."""
 
-from .models import Patient
-from .sections import SECTIONS, THEME
 from .layman import topic
+from .models import Patient
 from .section_plain import template
+from .sections import SECTIONS, THEME
 
 
 def _situation(flagged_count: int) -> str:

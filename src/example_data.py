@@ -241,8 +241,12 @@ def _build_patient(spec: dict) -> Patient:
     wbc_sum = sum(values[k] for k in _WBC_KEYS)
     if wbc_sum > 0:
         scale = 100.0 / wbc_sum
-        for k in _WBC_KEYS:
-            values[k] = round(values[k] * scale)
+        scaled = {k: round(values[k] * scale) for k in _WBC_KEYS}
+        diff = 100 - sum(scaled.values())
+        if diff != 0:
+            largest = max(_WBC_KEYS, key=lambda k: scaled[k])
+            scaled[largest] += diff
+        values.update(scaled)
 
     # Phase 2: build Test objects in catalog order (derived computed on the fly).
     tests: list[Test] = []

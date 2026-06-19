@@ -1,7 +1,15 @@
 .env.local
 private_reports
-data/
-output/
+/data/
+.DS_Store
 __pycache__/
 *.pyc
 tools/
+
+# Next.js
+next-app/node_modules/
+next-app/.next/
+next-app/out/
+next-app/build/
+next-app/*.tsbuildinfo
+next-app/next-env.d.ts

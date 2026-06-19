@@ -1,5 +1,6 @@
 """Orchestrate: read PDF -> parse -> build Patient objects with summaries."""
 
+import os
 from pathlib import Path
 
 from .models import Patient, Test
@@ -9,6 +10,11 @@ from .sections import SECTIONS
 from .names import clean_name
 
 REPORTS_DIR = Path(__file__).resolve().parent.parent / "private_reports"
+
+# Backend flag: set VITALS_DATA_MODE=example to serve randomized sample data
+# (no patient PDFs read) for public presentation. Default "real" keeps the
+# private PDF pipeline unchanged.
+_EXAMPLE_TOKENS = {"example", "demo", "sample", "1", "true", "yes", "on"}
 
 
 def load_patient(pdf_path: Path) -> Patient:
@@ -47,6 +53,17 @@ def patient_summary(patient: Patient) -> dict:
 
 
 def load_all() -> list[Patient]:
+    mode = os.environ.get("VITALS_DATA_MODE", "real").strip().lower()
+    if mode in _EXAMPLE_TOKENS:
+        from .example_data import build_example_patients
+        print("VITALS_DATA_MODE=example - using randomized sample data (no patient data).",
+              flush=True)
+        patients = build_example_patients()
+        for p in patients:
+            _attach_notes(p)
+            p.summary = patient_summary(p)
+        return patients
+
     patients = []
     for pdf in sorted(REPORTS_DIR.glob("*.pdf")):
         p = load_patient(pdf)
